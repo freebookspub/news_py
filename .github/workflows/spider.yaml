@@ -29,28 +29,28 @@ jobs:
           python-version: ${{ env.NODE_VERSION }}
 
       - name: Setup Python package
-        run: pip install -r ./py_news/requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run spider en bbc news
-        run: python ./py_news/bbc.py
+        run: python bbc.py
 
       - name: Run spider au abc news
-        run: python ./py_news/au_abc.py
+        run: python au_abc.py
 
       - name: Run spider us newsweek news
-        run: python ./py_news/us_newsweek.py
+        run: python us_newsweek.py
 
       - name: Run spider us nytimes news
-        run: python ./py_news/us_nytimes.py
+        run: python us_nytimes.py
 
       - name: Run spider cbsnews news
-        run: python ./py_news/cbsnews.py
+        run: python cbsnews.py
 
       - name: Run spider rnz news
-        run: python ./py_news/rnz.py
+        run: python rnz.py
 
       - name: Run spider aljazeera news
-        run: python ./py_news/run.py
+        run: python run.py
 
 
 
