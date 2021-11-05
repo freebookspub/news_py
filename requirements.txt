@@ -1,0 +1,17 @@
+beautifulsoup4==4.9.3
+certifi==2020.12.5
+cffi==1.14.5
+chardet==4.0.0
+crcmod==1.7
+cryptography==3.4.7
+idna==2.10
+jmespath==0.10.0
+oss2==2.14.0
+pycparser==2.20
+pycryptodome==3.10.1
+PyMySQL==1.0.2
+requests==2.25.1
+six==1.16.0
+soupsieve==2.2
+torndb==0.3
+urllib3==1.26.3
