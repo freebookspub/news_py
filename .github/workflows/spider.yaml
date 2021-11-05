@@ -50,7 +50,7 @@ jobs:
         run: python rnz.py
 
       - name: Run spider aljazeera news
-        run: python run.py
+        run: python aljazeera.py
 
 
 
