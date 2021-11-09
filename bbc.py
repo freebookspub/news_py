@@ -58,11 +58,11 @@ def deduplication_url(url):
     return cursor.fetchone()
 
 #插入详情
-def insert_details(news_id, content):
+def insert_details(news_id, content, src, alt):
     sql = """
-        insert into details(news_id, content) values(%s, %s)
+        insert into details(news_id, content, src, alt) values(%s, %s, %s, %s)
     """
-    cursor.execute(sql, (news_id, content))
+    cursor.execute(sql, (news_id, content, src, alt))
     conn.commit()
 
 #获取未爬取详情页的数据
@@ -105,31 +105,44 @@ def parse_first_json(content, k):
 def parse_detail_json(content, url, bbc_id):
     try:
         json_text = json.loads(content)
-        detail_data = json_text['data']
-        article_data = detail_data["article?currentPageAnalyticsDestination=NEWS_GNL&env=live&host=www.bbc.com&isAdvertisingEnabled=true&language=en-GB&uri=%2Fnews%2F" + (url.split("/")[-1])]
+        if isinstance(json_text, dict):
+            dict_text = json_text
+        else:
+            dict_text = json.loads(json_text)
+        detail_data = dict_text['data']
+        article_data = detail_data["article?currentPageAnalyticsDestination=NEWS_GNL&env=live&host=www.bbc.com&isAdvertisingEnabled=true&language=en-GB&leftAligned=true&uri=%2Fnews%2F" + (url.split("/")[-1])]
         data = article_data['data']
-        blocks = data['blocks']
+        blocks = data['content']['model']['blocks']
         content_list = []
+        src = ''
+        alt = ''
         for block in blocks:
+            print(block)
             if 'image' in block['type']:
-                img_url = block['model']['media']['originalSrc']
-                img_text = block['model']['media']['alt']
+                img_url = block['model']['image']['src']
+                img_text = block['model']['image']['alt']
+                src = img_url
+                alt = img_text
                 imgtext = "<div class=\"imgText\">" + img_text + "</div>"
                 content_list.append("<img src = '%s' class=\"abcImg\" />" % (img_url))
                 content_list.append(imgtext)
             if 'text' in block['type']:
-                text = block['model']['blocks'][0]['model']['text']
-                content_list.append(text)
+                h4 = block['model']['blocks'][0]['model']['text']
+                # bold = block['model']['blocks'][0]['model']['blocks'][0]['model']['text']
+                # type = block['model']['blocks'][0]['model']['blocks'][0]['model']['attributes']
+                # if 'bold' in type:
+                #     h4 = "<div class=\"bold-text\">" + bold + "</div>"
+                content_list.append(h4)
             if 'crosshead' in block['type']:
                 head = block['text']
                 h2 = "<div class=\"head3\">" + head + "</div>"
                 content_list.append(h2)
         time.sleep(1)
-        insert_details(bbc_id, json.dumps(content_list))
+        insert_details(bbc_id, json.dumps(content_list), src, alt)
         update_nytimes(bbc_id, finshed_succes)
     except:
-        update_nytimes(bbc_id, finshed_error)
         logging.info("parse_detail_json error, bbc_id = %s", bbc_id)
+        update_nytimes(bbc_id, finshed_error)
 
 def parse_detail_html(content):
     soup = BeautifulSoup(content, "html.parser")
