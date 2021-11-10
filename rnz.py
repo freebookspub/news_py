@@ -142,6 +142,7 @@ def parse_content(name):
         except:
             logging.error("content parse error, id = %s" % list[0])
             update_statue(list[0], finshed_error)
+        time.sleep(1)
 
 
 def getImg(url):

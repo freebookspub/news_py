@@ -156,6 +156,7 @@ def parse_detail():
     for bbc in bbc_list:
         json_content = parse_detail_html(request_details(bbc[1]))
         parse_detail_json(json_content, bbc[1], bbc[0])
+        time.sleep(1)
 
 def main():
     map_dict = {

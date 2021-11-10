@@ -125,6 +125,7 @@ def parse_detail():
     bbc_list = get_nytimes()
     for bbc in bbc_list:
         parse_detail_html(bbc[0], request_details(bbc[1]))
+        time.sleep(1)
 
 
 def main():

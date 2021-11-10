@@ -152,6 +152,7 @@ def parse_content():
         except:
             logging.error("content parse error, id = %s" % nytimes[0])
             update_nytimes(nytimes[0], finshed_error)
+        time.sleep(1)
 
 
 def select_all_nytimes():

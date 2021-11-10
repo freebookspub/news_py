@@ -178,6 +178,7 @@ def parse_content():
         except:
             update_nytimes(nytimes[0], finshed_error)
             logging.error("newsweek error, id = %s" % nytimes[0])
+        time.sleep(1)
 
 
 
