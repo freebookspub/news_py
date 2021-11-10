@@ -33,3 +33,9 @@ PIDS=$(ps -ef | grep aljazeera.py  | grep -v grep | awk '{print $2}')
 if [ "$PIDS" = "" ]; then
 	/usr/bin/python3.9 /root/limitoo/news_py/aljazeera.py
 fi
+
+PIDS=$(ps -ef | grep newshub.py  | grep -v grep | awk '{print $2}')
+if [ "$PIDS" = "" ]; then
+	/usr/bin/python3.9 /root/limitoo/news_py/newshub.py
+fi
+

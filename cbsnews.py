@@ -57,7 +57,7 @@ def insert_nytimes(href, src, title, desc, menu):
 #去重
 def deduplication_url(url):
     sql = """
-        select * from news where href = %s
+        select * from news where source = 'cbsnews' and href = %s
     """
     cursor.execute(sql, (url))
     return cursor.fetchone()
