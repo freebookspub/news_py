@@ -51,7 +51,7 @@ def insert_news(href, src, title, desc, tab):
 
 def deduplication_url(url):
     sql = """
-        select * from news where TO_DAYS(NOW()) - TO_DAYS(create_time) <= 1 and source='abc' and href = %s
+        select * from news where source='abc' and href = %s
     """
     cursor.execute(sql, (url))
     return cursor.fetchone()
