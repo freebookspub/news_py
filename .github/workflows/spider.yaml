@@ -32,7 +32,6 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run spider en bbc news
-        run: python bbc.py
 
       - name: Run spider au abc news
         run: python au_abc.py
