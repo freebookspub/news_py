@@ -57,7 +57,7 @@ def insert_list(href, src, title, desc, tab, country, name):
 
 def deduplication_url(url, name):
     sql = """
-        select * from news where source=%s and href = %s
+        select * from news where TO_DAYS(NOW()) - TO_DAYS(create_time) <= 1 and source=%s and href = %s
     """
     cursor.execute(sql, (name, url))
     return cursor.fetchone()

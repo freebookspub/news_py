@@ -52,7 +52,7 @@ def insert_nytimes(href, src, title, desc, k):
 #去重
 def deduplication_url(url):
     sql = """
-        select * from news where href = %s
+        select * from news where TO_DAYS(NOW()) - TO_DAYS(create_time) <= 1 and source = 'bbc' and href = %s
     """
     cursor.execute(sql, (url))
     return cursor.fetchone()
@@ -91,15 +91,18 @@ def parse_first_json(content, k):
     if 200 == payload['meta']['responseCode']:
         results = payload['body']['results']
         for result in results:
-            if 'url' not in result:
-                continue
-            href = result['url']
-            title = result['title']
-            image = result['image']
-            src = image['href'] if image is not None else ''
-            desc = result['summary']
-            insert_nytimes(href, src, title, desc, k)
-            logging.info("parse_first_json success, href = %s", href)
+            try:
+                if 'url' not in result:
+                    continue
+                href = result['url']
+                title = result['title']
+                image = result['image']
+                src = image['href'] if image is not None else ''
+                desc = result['summary']
+                insert_nytimes(href, src, title, desc, k)
+            except:
+                logging.info("parse_first_json error, href = %s", href)
+
 
 #解析详情页
 def parse_detail_json(content, url, bbc_id):
@@ -117,7 +120,6 @@ def parse_detail_json(content, url, bbc_id):
         src = ''
         alt = ''
         for block in blocks:
-            print(block)
             if 'image' in block['type']:
                 img_url = block['model']['image']['src']
                 img_text = block['model']['image']['alt']
