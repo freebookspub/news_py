@@ -151,6 +151,7 @@ def main():
     for tab, value in tab_list.items():
         get_html(value, tab)
     get_detail()
+    conn.close()
 
 
 if __name__ == '__main__':

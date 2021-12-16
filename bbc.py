@@ -176,6 +176,7 @@ def main():
         parse_first_json(r.content, k)
         time.sleep(1)
     parse_detail()
+    conn.close()
 
 if __name__ == '__main__':
     main()

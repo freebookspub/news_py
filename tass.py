@@ -188,7 +188,7 @@ def main():
         parse_top(r.content, tab, country, name)
         time.sleep(1)
     parse_content(name)
-
+    conn.close()
 
 if __name__ == '__main__':
     main()

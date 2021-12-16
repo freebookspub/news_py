@@ -146,6 +146,7 @@ def main():
         parse_first_html(r.content, tab)
         time.sleep(1)
     parse_detail()
+    conn.close()
 
 
 

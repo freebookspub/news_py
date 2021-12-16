@@ -184,6 +184,7 @@ def main():
         parse_list(r.content, tab)
         time.sleep(3)
     parse_content()
+    conn.close()
 
 
 if __name__ == '__main__':

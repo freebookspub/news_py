@@ -190,7 +190,7 @@ def main():
         parse_lists(r.content, tab)
         time.sleep(1)
     parse_content()
-
+    conn.close()
 
 if __name__ == '__main__':
     main()

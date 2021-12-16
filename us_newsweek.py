@@ -205,7 +205,7 @@ def main():
         parse_top(r.content, tab)
         time.sleep(1)
     parse_content()
-
+    conn.close()
 
 if __name__ == '__main__':
     main()
