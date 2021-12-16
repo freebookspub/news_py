@@ -51,8 +51,11 @@ def insert_list(href, src, title, desc, tab, country, name):
         sql = """
             insert into news(href, img_url, title, description, country, source, menu, href_hash) values(%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sql, (href, src, title, desc, country, name, tab, get_hash()))
-        conn.commit()
+        try:
+            cursor.execute(sql, (href, src, title, desc, country, name, tab, get_hash()))
+            conn.commit()
+        except:
+            conn.rollback()
 
 
 def deduplication_url(url, name):
@@ -68,8 +71,11 @@ def insert_details(news_id, src, alt, content):
     sql = """
         insert into details(news_id, src, alt, content) values(%s, %s, %s, %s)
     """
-    cursor.execute(sql, (news_id, src, alt, content))
-    conn.commit()
+    try:
+        cursor.execute(sql, (news_id, src, alt, content))
+        conn.commit()
+    except:
+        conn.rollback()
 
 def get_url(name):
     sql = """
@@ -82,8 +88,11 @@ def get_url(name):
 
 def update_statue(id, status):
     sql = "update news set status = %s where id = %s"
-    cursor.execute(sql, (status, id))
-    conn.commit()
+    try:
+        cursor.execute(sql, (status, id))
+        conn.commit()
+    except:
+        conn.rollback()
 
 def parse_top(html, tab, country, name):
     soup = BeautifulSoup(html, "html.parser")

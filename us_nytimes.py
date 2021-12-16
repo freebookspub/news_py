@@ -50,8 +50,11 @@ def insert_nytimes(href, src, title, desc, tab):
         sql = """
             insert into news(href, img_url, title, description, country, source, menu, href_hash) values(%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sql, (href, src, title, desc,'us', 'nytime', tab, get_hash()))
-        conn.commit()
+        try:
+            cursor.execute(sql, (href, src, title, desc,'us', 'nytime', tab, get_hash()))
+            conn.commit()
+        except:
+            conn.rollback()
 
 
 def deduplication_url(url):
@@ -67,8 +70,11 @@ def insert_details(nytimes_id, figure, p_list, alt, src, content):
     sql = """
         insert into details(news_id, figure, p_list, alt, src, content) values(%s, %s, %s, %s, %s, %s)
     """
-    cursor.execute(sql, (nytimes_id, figure, p_list, alt, src, content))
-    conn.commit()
+    try:
+        cursor.execute(sql, (nytimes_id, figure, p_list, alt, src, content))
+        conn.commit()
+    except:
+        conn.rollback()
 
 def get_nytimes():
     sql = """
@@ -80,8 +86,11 @@ def get_nytimes():
 
 def update_nytimes(id, status):
     sql = "update news set status = %s where id = %s"
-    cursor.execute(sql, (status, id))
-    conn.commit()
+    try:
+        cursor.execute(sql, (status, id))
+        conn.commit()
+    except:
+        conn.rollback()
 
 def splitFun(urlweb):
     num = ''

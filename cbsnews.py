@@ -50,8 +50,11 @@ def insert_nytimes(href, src, title, desc, menu):
         sql = """
             insert into news(href, img_url, title, description, country, source, menu, href_hash) values(%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sql, (href, src, title, desc,'us', 'cbsnews', menu, get_hash()))
-        conn.commit()
+        try:
+            cursor.execute(sql, (href, src, title, desc,'us', 'cbsnews', menu, get_hash()))
+            conn.commit()
+        except:
+            conn.rollback()
 
 
 #去重
@@ -69,8 +72,11 @@ def insert_details(nytimes_id,content):
     sql = """
         insert into details(news_id,content) values(%s, %s)
     """
-    cursor.execute(sql, (nytimes_id, content))
-    conn.commit()
+    try:
+        cursor.execute(sql, (nytimes_id, content))
+        conn.commit()
+    except:
+        conn.rollback()
 
 #获取未爬取详情页的数据
 def get_nytimes():
@@ -84,8 +90,11 @@ def get_nytimes():
 #修改状态
 def update_nytimes(id, status):
     sql = "update news set status = %s where id = %s"
-    cursor.execute(sql, (status, id))
-    conn.commit()
+    try:
+        cursor.execute(sql, (status, id))
+        conn.commit()
+    except:
+        conn.rollback()
 
 
 #请求详情页

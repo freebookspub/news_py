@@ -46,8 +46,11 @@ def insert_nytimes(href, src, title, desc, k):
         sql = """
             insert into news(href, img_url, title, description, country, source, menu, href_hash) values(%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sql, (href, src, title, desc,'uk', 'bbc', k, get_hash()))
-        conn.commit()
+        try:
+            cursor.execute(sql, (href, src, title, desc,'uk', 'bbc', k, get_hash()))
+            conn.commit()
+        except:
+            conn.rollback()
 
 #去重
 def deduplication_url(url):
@@ -62,8 +65,11 @@ def insert_details(news_id, content, src, alt):
     sql = """
         insert into details(news_id, content, src, alt) values(%s, %s, %s, %s)
     """
-    cursor.execute(sql, (news_id, content, src, alt))
-    conn.commit()
+    try:
+        cursor.execute(sql, (news_id, content, src, alt))
+        conn.commit()
+    except:
+        conn.rollback()
 
 #获取未爬取详情页的数据
 def get_nytimes():
@@ -76,8 +82,11 @@ def get_nytimes():
 #修改状态
 def update_nytimes(id, status):
     sql = "update news set status = %s where id = %s"
-    cursor.execute(sql, (status, id))
-    conn.commit()
+    try:
+        cursor.execute(sql, (status, id))
+        conn.commit()
+    except:
+        conn.rollback()
 
 #请求详情页
 def request_details(href):
