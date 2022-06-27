@@ -102,7 +102,7 @@ def parse_top(html, tab, country, name):
             href = website + article.find("a", class_="u-blocklink__overlay-link").get('href')
             title = article.h3.get_text()
             imgs = article.find('img')
-            pngurl = website + imgs.get('src')
+            pngurl = imgs.get('src')
             desc = article.find('p').get_text()
             insert_list(href, pngurl, title, desc, tab, country, name)
             # print(tab)
