@@ -209,6 +209,9 @@ def main():
         time.sleep(1)
     # parse_detail()
 
+    time.sleep(1)
+    conn.close()
+
 
 
 

@@ -206,6 +206,9 @@ def main():
         time.sleep(1)
     parse_content(name)
 
+    time.sleep(1)
+    conn.close()
+
 
 if __name__ == '__main__':
     main()
