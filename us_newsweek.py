@@ -11,15 +11,15 @@ import logging
 import time
 import uuid
 
-# HOST= "130.61.52.228"
-# DATABASE="newsdb"
-# USER="newsuser"
-# PASSWORD="sDsd@#E$%&e9d"
-
 HOST= "130.61.52.228"
-DATABASE="tempnews"
-USER="tempnewsadmin"
-PASSWORD="FD32sd$7De9ds^&"
+DATABASE="newsdb"
+USER="newsuser"
+PASSWORD="sDsd@#E$%&e9d"
+
+# HOST= "130.61.52.228"
+# DATABASE="tempnews"
+# USER="tempnewsadmin"
+# PASSWORD="FD32sd$7De9ds^&"
 
 finshed_succes = 1
 finshed_error = 9

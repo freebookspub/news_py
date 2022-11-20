@@ -12,14 +12,19 @@ import time
 import uuid
 
 HOST= "130.61.52.228"
-DATABASE="tempnews"
-USER="tempnewsadmin"
-PASSWORD="FD32sd$7De9ds^&"
+DATABASE="newsdb"
+USER="newsuser"
+PASSWORD="sDsd@#E$%&e9d"
 
-HOST= "sql427.main-hosting.eu"
-DATABASE="u637214094_spider"
-USER="u637214094_spider"
-PASSWORD="Aasdfgh12@"
+# HOST= "130.61.52.228"
+# DATABASE="tempnews"
+# USER="tempnewsadmin"
+# PASSWORD="FD32sd$7De9ds^&"
+#
+# HOST= "sql427.main-hosting.eu"
+# DATABASE="u637214094_spider"
+# USER="u637214094_spider"
+# PASSWORD="Aasdfgh12@"
 
 conn = pymysql.connect( host=HOST, database=DATABASE, user= USER, password=PASSWORD, charset='utf8')
 cursor = conn.cursor()
